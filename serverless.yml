@@ -1,0 +1,38 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: threatlist-updater
+provider:
+  name: aws
+  runtime: python2.7
+  timeout: 60
+  memorySize: 128
+  # https://forum.serverless.com/t/getting-handle-accountid-in-serverless-config/946/9
+  variableSyntax: '\${{(((?!\${{).)+?)}}'
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "guardduty:ListDetectors"
+        - "guardduty:ListThreatIntelSets"
+        - "guardduty:GetThreatIntelSet"
+        - "guardduty:UpdateThreatIntelSet"
+      Resource: "*"
+
+functions:
+  update_threat_intel_sets:
+    handler: handler.update_threat_intel_sets
+    events:
+    - schedule:
+        # update every thirty minutes
+        rate: cron(*/30 * * * ? *)
+        enabled: true
