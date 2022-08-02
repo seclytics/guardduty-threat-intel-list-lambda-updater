@@ -1,3 +1,5 @@
+# ARCHIVED: No longer maintained
+
 # AWS GuardDuty Threat Intel List Lambda Updater
 
 [Threat Intel Lists](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_upload_lists.html) are not automatically updated on AWS [GuardDuty](https://aws.amazon.com/guardduty/). In order for GuardDuty to have the lastest threat intel, we have to manually update each list. 
